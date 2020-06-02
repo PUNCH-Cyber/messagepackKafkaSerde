@@ -2,23 +2,18 @@ name := "messagepackKafkaSerde"
 
 version := "0.1"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.1"
 
 assemblyJarName in assembly := name.value + "-" + version.value + ".jar"
 
 resolvers ++= Seq(
-    "clojars"           at "http://clojars.org/repo/",
-    "HDP"               at "http://repo.hortonworks.com/content/repositories/releases/",
-    "Hortonworks Jetty" at "http://repo.hortonworks.com/content/repositories/jetty-hadoop/"
+    "clojars"           at "https://clojars.org/repo/"
 )
-
-// HDP and HDF minor version tags to tack on to dependencies
-val hdpM: String = "3.1.0.0-78"
 
 libraryDependencies ++= Seq(
     "org.msgpack"         %  "msgpack-core"        % "0.8.17" % Compile,
-    "org.apache.kafka"    %% "kafka"               % "2.0.0"  % Compile,
-    "org.apache.kafka"    %  "kafka-clients"       % "2.0.0"  % Compile
+    "org.apache.kafka"    %% "kafka"               % "2.5.0"  % Compile,
+    "org.apache.kafka"    %  "kafka-clients"       % "2.5.0"  % Compile
 )
 
 assemblyMergeStrategy in assembly := {
