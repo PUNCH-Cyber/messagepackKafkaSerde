@@ -1,7 +1,5 @@
 # Project exclude paths
 /project/project/target/
 /project/target/
-/target/streams/
-/target/scala-2.12/classes/
-/target/scala-2.12/resolution-caches/
+/target
 /.idea/
