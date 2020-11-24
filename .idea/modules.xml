@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ZeppelinRemoteNotebooks/ZeppelinInstance_Zeppelin_connection@ZeppelinConnections@1043536326158095892.iml" filepath="$PROJECT_DIR$/.idea/ZeppelinRemoteNotebooks/ZeppelinInstance_Zeppelin_connection@ZeppelinConnections@1043536326158095892.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/messagepackKafkaSerde.iml" filepath="$PROJECT_DIR$/.idea/modules/messagepackKafkaSerde.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/messagepackKafkaSerde-build.iml" filepath="$PROJECT_DIR$/.idea/modules/messagepackKafkaSerde-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka_serde.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka_serde.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka_serde-build.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka_serde-build.iml" />
     </modules>
   </component>
 </project>
