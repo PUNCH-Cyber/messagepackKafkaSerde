@@ -1,7 +1,7 @@
 name := "kafka_serde"
 version := "1.0.1"
 organization := "com.punchcyber"
-crossScalaVersions := Seq("2.12.10", "2.13.3")
+crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.3")
 
 credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 publishMavenStyle := true
