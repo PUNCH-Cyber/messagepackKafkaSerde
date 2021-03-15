@@ -1,0 +1,37 @@
+# Kafka Serde Pipeline
+
+trigger:
+- main
+- develop
+
+pr:
+- main
+- develop
+
+pool:
+  vmImage: 'ubuntu-18.04'
+
+jobs:
+- job: PackageTest
+  displayName: Compile, Package, and Test
+  steps:
+  - task: DownloadSecureFile@1
+    name: sbtCredentials
+    displayName: 'SBT Credentials File'
+    inputs:
+      secureFile: 'sbt-credentials'
+
+  - script: |
+      mkdir -p $HOME/.sbt
+      ln -s $(sbtCredentials.secureFilePath) $HOME/.sbt/.credentials
+    displayName: 'Load SBT Credentials'
+
+  - script: sbt clean +package +test
+    displayName: 'Built and Test with sbt'
+
+- job: Publish
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/new-jfrog-repo')))
+  displayName: Publish Artifact
+  steps:
+  - script: |
+      sbt clean +publish

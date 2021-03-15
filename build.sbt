@@ -1,5 +1,5 @@
 name := "kafka_serde"
-version := "1.0.0"
+version := "1.0.0-SNAPSHOT"
 organization := "com.punchcyber"
 crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.3")
 
@@ -14,7 +14,13 @@ publishTo := {
     Some("releases" at baseurl + "mvn-prod-local")
 }
 
+resolvers ++= Seq(
+  "PUNCH-Research" at "https://punchcyber.jfrog.io/artifactory/mvn-prod/"
+)
+
 libraryDependencies ++= Seq(
   "org.apache.kafka" % "kafka-clients" % "2.5.1"  % Compile,
-  "org.msgpack"      % "msgpack-core"  % "0.8.21" % Compile
+  "org.msgpack"      % "msgpack-core"  % "0.8.21" % Compile,
+  "org.scalactic"   %% "scalactic"     % "3.2.5"  % Test,
+  "org.scalatest"   %% "scalatest"     % "3.2.5"  % Test
 )
