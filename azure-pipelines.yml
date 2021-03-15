@@ -29,9 +29,8 @@ jobs:
   - script: sbt clean +package +test
     displayName: 'Built and Test with sbt'
 
-- job: Publish
-  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/new-jfrog-repo')))
-  displayName: Publish Artifact
-  steps:
   - script: |
       sbt clean +publish
+    displayName: Publish Artifacts
+    condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/new-jfrog-repo')))
+
