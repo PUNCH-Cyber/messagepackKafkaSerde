@@ -39,6 +39,7 @@ jobs:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
   - script: |
+      git checkout main
       sbt "release cross with-defaults"
       git checkout develop
       git merge origin/main
