@@ -40,9 +40,15 @@ jobs:
 
   - script: |
       git checkout main
+      git config --global user.name "AzurePipelines"
+      git config --global user.email "noreply@punchcyber.com"
       sbt "release cross with-defaults"
+    displayName: Release and tag
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+  - script: |
       git checkout develop
       git merge origin/main
       git push origin develop
-    displayName: Release and tag
+    displayName: Update develop
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
