@@ -15,6 +15,10 @@ jobs:
 - job: PackageTest
   displayName: Package, Test, and Deploy
   steps:
+  - checkout: self
+    persistCredentials: true
+    displayName: Checkout Code
+
   - task: DownloadSecureFile@1
     name: sbtCredentials
     displayName: 'SBT Credentials File'
@@ -32,5 +36,17 @@ jobs:
   - script: |
       sbt clean +publish
     displayName: Publish Artifacts
-    condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+    condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
+                                   eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
 
+  - script: |
+      TAG=$(sbt -Dsbt.supershell=false -error "print version")
+      git config --global user.name "AzurePipelines"
+      git config --global user.email "noreply@punchcyber.com"
+      git tag -a $TAG -m "Auto-tagged version from pipeline"
+      git push origin $TAG
+      git checkout develop
+      git merge main
+      git push origin develop
+    displayName: Tag git version
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
