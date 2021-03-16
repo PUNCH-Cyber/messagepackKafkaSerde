@@ -1,5 +1,5 @@
 name := "kafka_serde"
-version := "1.0.0-SNAPSHOT"
+version := "1.0.0"
 organization := "com.punchcyber"
 crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.3")
 

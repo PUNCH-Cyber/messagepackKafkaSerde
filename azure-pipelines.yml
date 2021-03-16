@@ -31,7 +31,7 @@ jobs:
     displayName: 'Load SBT Credentials'
 
   - script: sbt clean +package +test
-    displayName: 'Built and Test with sbt'
+    displayName: 'Build and Test with sbt'
 
   - script: |
       sbt clean +publish
@@ -41,6 +41,11 @@ jobs:
 
   - script: |
       TAG=$(sbt -Dsbt.supershell=false -error "print version")
+      TAG=$(sbt -Dsbt.supershell=false -error "print version")
+      if [[ ! -z $(echo $TAG | grep SNAPSHOT) ]]; then
+        echo 'cannot tag SNAPSHOT version' 1>&2
+        exit 1
+      fi
       git config --global user.name "AzurePipelines"
       git config --global user.email "noreply@punchcyber.com"
       git tag -a $TAG -m "Auto-tagged version from pipeline"
