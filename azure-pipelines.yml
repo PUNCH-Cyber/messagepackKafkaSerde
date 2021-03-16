@@ -35,23 +35,13 @@ jobs:
 
   - script: |
       sbt clean +publish
-    displayName: Publish Artifacts
-    condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
-                                   eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+    displayName: Publish Dev Artifact
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
   - script: |
-      TAG=$(sbt -Dsbt.supershell=false -error "print version")
-      TAG=$(sbt -Dsbt.supershell=false -error "print version")
-      if [[ ! -z $(echo $TAG | grep SNAPSHOT) ]]; then
-        echo 'cannot tag SNAPSHOT version' 1>&2
-        exit 1
-      fi
-      git config --global user.name "AzurePipelines"
-      git config --global user.email "noreply@punchcyber.com"
-      git tag -a $TAG -m "Auto-tagged version from pipeline"
-      git push origin $TAG
+      sbt "release cross with-defaults"
       git checkout develop
-      git merge main
+      git merge origin/main
       git push origin develop
-    displayName: Tag git version
+    displayName: Release and tag
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
