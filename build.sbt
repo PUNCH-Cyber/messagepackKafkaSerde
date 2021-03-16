@@ -24,3 +24,5 @@ libraryDependencies ++= Seq(
   "org.scalactic"   %% "scalactic"     % "3.2.5"  % Test,
   "org.scalatest"   %% "scalatest"     % "3.2.5"  % Test
 )
+
+releaseVersionBump := sbtrelease.Version.Bump.Minor
