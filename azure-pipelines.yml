@@ -34,10 +34,10 @@ jobs:
     displayName: 'Build and Test with sbt'
 
   - script: |
-      sbt clean +publish
       cat $HOME/.sbt/.credentials
+      sbt clean +publish
     displayName: Publish Dev Artifact
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/debug-pipeline'))
 
   - script: |
       git checkout main
